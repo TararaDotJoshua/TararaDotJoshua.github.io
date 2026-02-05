@@ -41,7 +41,7 @@ const skills = [
     title: 'Manufacturing & Fixturing',
     icon: 'wrench',
     items: [
-      'Precision Fixturing',
+      'Sub-micron Fixturing',
       'Wire-Bonding Fixtures',
       'FDM',
       'SLA',
@@ -58,6 +58,7 @@ const skills = [
       'Computer Vision',
       'AprilTag Processing',
       'PID',
+      'Software-Controlled Precision Fixturing',
       'UAS Systems',
       'Mechatronics',
       'Sensor Integration',
