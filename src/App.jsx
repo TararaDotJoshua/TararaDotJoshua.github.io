@@ -287,7 +287,7 @@ function App() {
           <h1>Joshua Tarara</h1>
           <p className="hero-sub">
             Specializing in mechanical designs for DoD microelectronics, embedded
-            systems, and avionics. Expert in VITA-spec housing, RF layouts, and
+            systems, and avionics. Experience in VITA-spec housing, RF layouts, and
             precision fixturing with research interests in UAS and optomechanical
             design.
           </p>
