@@ -54,7 +54,17 @@ const skills = [
   {
     title: 'Programming',
     icon: 'code',
-    items: ['C++', 'C#', 'Python', 'MATLAB', 'SQL'],
+    items: [
+      'C++',
+      'C#',
+      'Python',
+      'MATLAB',
+      'SQL',
+      'Github',
+      'VBA',
+      'CAD Software Automation',
+      'Agentic AI Coding',
+    ],
   },
   {
     title: 'PCB & Electronics',
