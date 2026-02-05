@@ -83,6 +83,21 @@ const skills = [
     ],
   },
   {
+    title: 'BD & Methodologies',
+    icon: 'strategy',
+    items: [
+      'Technology Roadmapping',
+      'Product Roadmapping',
+      'DoW Program/contract Proposals',
+      'SCRUM',
+      'Agile',
+      'JIT',
+      'FoM Analysis',
+      'SOTA Analysis',
+      'Strategic Buisness Development',
+    ],
+  },
+  {
     title: 'PCB & Electronics',
     icon: 'bolt',
     items: [
