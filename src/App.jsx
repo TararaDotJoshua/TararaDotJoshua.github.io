@@ -254,7 +254,17 @@ const education = {
   awards: [
     { title: 'AMF Certification', org: 'SME', year: '2024' },
     { title: 'Eagle Scout', org: 'BSA', year: '2022' },
-    { title: 'SkillsUSA State Champion', org: 'SkillsUSA', year: '2022' },
+    {
+      title: 'New England Excellence in Engineering',
+      org: 'FIRST',
+      year: '2023',
+    },
+    {
+      title: 'District Excellence in Engineering',
+      org: 'FIRST',
+      year: '2024',
+    },
+    { title: '2X SkillsUSA State Champion', org: 'SkillsUSA', year: '2022 & 2023' },
   ],
 }
 
