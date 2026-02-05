@@ -35,6 +35,9 @@ const skills = [
     items: [
       'Precision Fixturing',
       'Wire-Bonding Fixtures',
+      'FDM',
+      'SLA',
+      'SLS',
       'CNC Mill (3-Axis)',
       'Manual & DRO Lathe',
       'AMF Certified',
