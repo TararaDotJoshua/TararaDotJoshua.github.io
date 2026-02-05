@@ -22,7 +22,15 @@ const skills = [
   {
     title: 'CAD & Design',
     icon: 'cad',
-    items: ['SolidWorks', 'AutoCAD', 'Creo 11', 'NX', 'KiCAD', 'Altium'],
+    items: [
+      'SolidWorks',
+      'AutoCAD',
+      'Creo 11',
+      'NX',
+      'KiCAD',
+      'Altium',
+      'Altium co-designer',
+    ],
   },
   {
     title: 'Analysis & Simulation',
@@ -49,6 +57,7 @@ const skills = [
     items: [
       'Computer Vision',
       'AprilTag Processing',
+      'PID',
       'UAS Systems',
       'Mechatronics',
       'Sensor Integration',
