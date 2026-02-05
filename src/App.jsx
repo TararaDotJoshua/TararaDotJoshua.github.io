@@ -30,6 +30,8 @@ const skills = [
       'KiCAD',
       'Altium',
       'Altium co-designer',
+      'Onshape',
+      'Solidworks PDM',
     ],
   },
   {
