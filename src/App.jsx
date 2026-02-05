@@ -15,14 +15,14 @@ const aboutHighlights = [
 const stats = [
   { value: '4+', label: 'Years of Industry Experience' },
   { value: '20+', label: 'Designs Projects' },
-  { value: 'Multiple', label: 'DoD Programs' },
+  { value: 'Multiple', label: 'DoW Programs' },
 ]
 
 const skills = [
   {
     title: 'CAD & Design',
     icon: 'cad',
-    items: ['SolidWorks', 'AutoCAD', 'Creo 11', 'KiCAD', 'Altium'],
+    items: ['SolidWorks', 'AutoCAD', 'Creo 11', 'NX', 'KiCAD', 'Altium'],
   },
   {
     title: 'Analysis & Simulation',
@@ -87,7 +87,7 @@ const experience = [
     timeframe: 'May 2023 - Jul 2024',
     bullets: [
       'Designed 20+ in-house assembly fixtures for ESS, Wire-bonding, and Automation',
-      'Assisted in DoD qualification of two active programs',
+      'Assisted in DoW qualification of two active programs',
       'Developed 10+ Chip-and-wire RF layouts & component block library',
       'Created program critical fixturing & re-work designs and drawings',
     ],
@@ -132,7 +132,7 @@ const projects = [
     category: 'Defense',
     description:
       'Designed and manufactured MIL-SPEC 3U VPX style housings for chip-and-wire RF microelectronics in defense avionics systems.',
-    tags: ['VITA Spec', 'MIL-SPEC', 'DoD', 'Microelectronics'],
+    tags: ['VITA Spec', 'MIL-SPEC', 'DoW', 'Microelectronics'],
     details:
       'Designed modular 3U VPX housings with thermal and EMI considerations for defense avionics. Delivered manufacturing-ready drawings, tolerance stacks, and assembly guidelines to meet MIL-SPEC requirements.',
     gradient: 'linear-gradient(135deg, #dbeafe, #e9d5ff)',
@@ -142,7 +142,7 @@ const projects = [
     category: 'RF Design',
     description:
       'Developed 10+ chip-and-wire RF layouts and component block libraries for high-frequency defense microelectronics at Mercury Systems.',
-    tags: ['RF Design', 'Microelectronics', 'DoD Programs'],
+    tags: ['RF Design', 'Microelectronics', 'DoW Programs'],
     details:
       'Created RF layout standards, component libraries, and layout reviews to improve design consistency. Supported qualification efforts and reduced layout iteration time.',
     gradient: 'linear-gradient(135deg, #fee2e2, #fde68a)',
@@ -151,8 +151,8 @@ const projects = [
     title: 'Multi-Up Wire Bonding Fixture',
     category: 'Manufacturing',
     description:
-      'Precision fixturing system for wire-bonding operations in DoD-qualified microelectronics manufacturing programs.',
-    tags: ['Fixturing', 'Wire Bonding', 'DoD Qualification'],
+      'Precision fixturing system for wire-bonding operations in DoW-qualified microelectronics manufacturing programs.',
+    tags: ['Fixturing', 'Wire Bonding', 'DoW Qualification'],
     imageUrl:
       'https://framerusercontent.com/images/DfzwHQ9Vtgtg5HD5neepVE4G68.jpg',
     details:
@@ -238,7 +238,6 @@ const education = {
   highlights: [
     'Specialization in Robotics and Control',
     'Minor in Business Management',
-    'Florida Tech UAS Research Lab Member',
   ],
   coursework: [
     'Robotics & Control Systems',
@@ -246,6 +245,7 @@ const education = {
     'Machine Design',
     'Manufacturing Processes',
     'Materials Science',
+    'CAD Design Automation',
     'CAD/CAM',
     'Product Marketing',
     'Technology Roadmapping',
@@ -286,7 +286,7 @@ function App() {
           <span className="badge">Mechanical Engineering Student</span>
           <h1>Joshua Tarara</h1>
           <p className="hero-sub">
-            Specializing in mechanical designs for DoD microelectronics, embedded
+            Specializing in mechanical designs for DoW microelectronics, embedded
             systems, and avionics. Experience in VITA-spec housing, RF layouts, and
             precision fixturing with research interests in UAS and optomechanical
             design.
@@ -334,7 +334,7 @@ function App() {
               I'm a Mechanical Engineering student at Florida Institute of
               Technology specializing in Robotics and Control with a minor in
               Business Management. With 4+ years of industry experience, I
-              specialize in mechanical designs for DoD microelectronics, embedded
+              specialize in mechanical designs for DoW microelectronics, embedded
               systems, and avionics applications at Mercury Systems and Critical
               Frequency Design.
             </p>
