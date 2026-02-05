@@ -58,6 +58,7 @@ const skills = [
       'Computer Vision',
       'AprilTag Processing',
       'PID',
+      'Automatic Fiber Optical Alignment',
       'Software-Controlled Precision Fixturing',
       'UAS Systems',
       'Mechatronics',
