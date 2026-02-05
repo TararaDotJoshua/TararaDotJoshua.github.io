@@ -1,0 +1,31 @@
+﻿:root {
+  font-family: 'Sora', 'Manrope', sans-serif;
+  color: #1f2937;
+  background-color: #f3f4f6;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: radial-gradient(circle at top, #f5f6f8 0%, #eceff3 55%, #e7ebf0 100%);
+  color: #1f2937;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+button,
+input,
+textarea {
+  font-family: inherit;
+}
+
+#root {
+  max-width: 1200px;
+  margin: 0 auto;
+}
