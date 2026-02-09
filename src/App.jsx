@@ -324,7 +324,7 @@ function App() {
       <header className="topbar">
         <div className="logo">Portfolio</div>
         <button
-          className="menu-toggle"
+          className={isMenuOpen ? 'menu-toggle open' : 'menu-toggle'}
           type="button"
           aria-label="Toggle navigation"
           aria-expanded={isMenuOpen}
