@@ -312,6 +312,7 @@ const education = {
 function App() {
   const [activeFilter, setActiveFilter] = useState('All')
   const [activeProject, setActiveProject] = useState(null)
+  const [isMenuOpen, setIsMenuOpen] = useState(false)
 
   const visibleProjects = useMemo(() => {
     if (activeFilter === 'All') return projects
@@ -322,7 +323,18 @@ function App() {
     <div className="app">
       <header className="topbar">
         <div className="logo">Portfolio</div>
-        <nav className="nav">
+        <button
+          className={isMenuOpen ? 'menu-toggle open' : 'menu-toggle'}
+          type="button"
+          aria-label="Toggle navigation"
+          aria-expanded={isMenuOpen}
+          onClick={() => setIsMenuOpen((prev) => !prev)}
+        >
+          <span />
+          <span />
+          <span />
+        </button>
+        <nav className={isMenuOpen ? 'nav open' : 'nav'}>
           <a href="#about">About</a>
           <a href="#skills">Skills</a>
           <a href="#experience">Experience</a>
