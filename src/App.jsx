@@ -158,11 +158,13 @@ const experience = [
 const filters = [
   'All',
   'Defense',
+  'Business Development',
   'UAS',
   'RF Design',
   'Mechatronics',
   'Manufacturing',
   'Computer Vision',
+  'Data Analysis',
   'Software',
   'Mechanical Design',
 ]
@@ -269,6 +271,36 @@ const projects = [
     details:
       'Generated subsystem models and assembly drawings from technical documentation. Documented mechanical interfaces and motion constraints.',
     gradient: 'linear-gradient(135deg, #fef3c7, #e5e7eb)',
+  },
+  {
+    title: 'SBIR Proposal & Go-to-Market Strategy',
+    category: 'Business Development',
+    description:
+      'Contributed to NSIC SBIR submission strategy by building a dual-use concept and commercialization narrative for a photonics anti-jamming product.',
+    tags: ['SBIR', 'Dual-Use Strategy', 'Go-to-Market', 'Defense'],
+    details:
+      'Identified proposal compliance issues, translated technical performance reports into evaluable proposal language, and developed market-positioning arguments used in pitch-deck materials.',
+    gradient: 'linear-gradient(135deg, #d1fae5, #bfdbfe)',
+  },
+  {
+    title: 'Product & Technology Roadmapping Project',
+    category: 'Software',
+    description:
+      'Built a Python application that parses Excel templates into multi-layer technology and capability roadmap visualizations on a unified timeline.',
+    tags: ['Python', 'Roadmapping', 'Data Visualization', 'Excel'],
+    details:
+      'Implemented chart generation for technology, capability, and roadmap datasets with risk, budget, and schedule overlays to support strategic planning and investor communication.',
+    gradient: 'linear-gradient(135deg, #e0e7ff, #ddd6fe)',
+  },
+  {
+    title: 'FOM Analysis and Modeling Project',
+    category: 'Data Analysis',
+    description:
+      'Developed modeling tools to graph product figures of merit (FOM) over development cycles and estimate state-of-the-art (SOTA) competitiveness boundaries.',
+    tags: ['FOM', 'SOTA Analysis', 'Modeling', 'Competitive Benchmarking'],
+    details:
+      'Compiled competitor specification datasets and generated trend-based boundaries to evaluate projected product effectiveness against market performance targets.',
+    gradient: 'linear-gradient(135deg, #fef9c3, #dbeafe)',
   },
 ]
 
