@@ -114,6 +114,7 @@ const experience = [
   {
     role: 'Mechanical Engineering Intern',
     company: 'Critical Frequency Design',
+    logo: '/CFD_Blue-horizontal-logo.webp',
     timeframe: 'May 2025 - Aug 2025',
     bullets: [
       'Designed and manufactured VITA Spec housings for defense applications',
@@ -125,6 +126,7 @@ const experience = [
   {
     role: 'Mechanical Engineering Intern',
     company: 'Mercury Systems',
+    logo: '/MRCY-9960c6f4.png',
     timeframe: 'May 2023 - Jul 2024',
     bullets: [
       'Designed 20+ in-house assembly fixtures for ESS, Wire-bonding, and Automation',
@@ -136,6 +138,7 @@ const experience = [
   {
     role: 'Student & Mentor',
     company: 'BAE Systems - FOCUS Program',
+    logo: '/BA.L.png',
     timeframe: 'Oct 2022 - Mar 2023',
     bullets: [
       'Completed BAE Systems FOCUS pre-internship program in 1st place',
@@ -146,6 +149,7 @@ const experience = [
   {
     role: 'Inventory Logistics Intern',
     company: 'Scott Electronics',
+    logo: '/scott-logo-2.svg',
     timeframe: 'Oct 2022 - Feb 2023',
     bullets: [
       'Used SQL and Infor to manage customer data and inventory',
@@ -203,11 +207,23 @@ const projects = [
     gradient: 'linear-gradient(135deg, #dcfce7, #a7f3d0)',
   },
   {
+    title: '5 DoF AprilTag Robotic Arm',
+    category: 'Mechatronics',
+    description:
+      '3D-printed 5-DoF robotic arm with AprilTag-based targeting, a custom inverse kinematics solver, and a React web UI. Controlled via Python on a Raspberry Pi over UART to a Duet 3 Mini 5+.',
+    tags: ['Python', 'AprilTag', 'Inverse Kinematics', 'Raspberry Pi', 'React'],
+    imageUrl: '/arm.png',
+    details:
+      'Led development of a personal 3D-printed 5-DoF robotic arm project. Built a custom inverse kinematics solver to compute joint angles from target poses detected via AprilTag computer vision. Designed a React web interface for real-time arm control, backed by a Python server running on a Raspberry Pi that communicates with a Duet 3 Mini 5+ motion controller over UART.',
+    gradient: 'linear-gradient(135deg, #dcfce7, #bbf7d0)',
+  },
+  {
     title: 'PIC Probing Station',
     category: 'Mechatronics',
     description:
       'Automated benchtop probing machine for Photonic Integrated Circuits combining mechanical design, automation, and software control.',
     tags: ['Mechatronics', 'Photonics', 'Automation'],
+    companyLogo: '/CFD_Blue-horizontal-logo.webp',
     details:
       'Integrated motion control, probing mechanics, and software for repeatable test workflows. Improved probing accuracy while streamlining operator setup.',
     gradient: 'linear-gradient(135deg, #e0f2fe, #c7d2fe)',
@@ -493,6 +509,13 @@ function App() {
           <div className="experience-list">
             {experience.map((job) => (
               <article className="experience-card" key={job.role + job.company}>
+                {job.logo && (
+                  <img
+                    src={job.logo}
+                    alt={`${job.company} logo`}
+                    className="experience-logo"
+                  />
+                )}
                 <div className="experience-header">
                   <div>
                     <h3>{job.role}</h3>
