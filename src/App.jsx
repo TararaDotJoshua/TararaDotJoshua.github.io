@@ -1,5 +1,6 @@
-﻿import { useMemo, useState } from 'react'
+﻿import { useState } from 'react'
 import './App.css'
+import { projects, featuredProjects } from './projectsData'
 
 const heroLinks = [
   { label: 'LinkedIn', icon: 'in', href: 'https://linkedin.com/in/tararajoshua' },
@@ -159,166 +160,8 @@ const experience = [
   },
 ]
 
-const filters = [
-  'All',
-  'Defense',
-  'Business Development',
-  'UAS',
-  'RF Design',
-  'Mechatronics',
-  'Manufacturing',
-  'Computer Vision',
-  'Data Analysis',
-  'Software',
-  'Mechanical Design',
-]
-
-const projects = [
-  {
-    title: 'VITA Spec 3U VPX Housing Design',
-    category: 'Defense',
-    description:
-      'Designed and manufactured MIL-SPEC 3U VPX style housings for chip-and-wire RF microelectronics in defense avionics systems.',
-    tags: ['VITA Spec', 'MIL-SPEC', 'DoW', 'Microelectronics'],
-    details:
-      'Designed modular 3U VPX housings with thermal and EMI considerations for defense avionics. Delivered manufacturing-ready drawings, tolerance stacks, and assembly guidelines to meet MIL-SPEC requirements.',
-    gradient: 'linear-gradient(135deg, #dbeafe, #e9d5ff)',
-  },
-  {
-    title: 'RF Chip-and-Wire Layouts',
-    category: 'RF Design',
-    description:
-      'Developed 10+ chip-and-wire RF layouts and component block libraries for high-frequency defense microelectronics at Mercury Systems.',
-    tags: ['RF Design', 'Microelectronics', 'DoW Programs'],
-    details:
-      'Created RF layout standards, component libraries, and layout reviews to improve design consistency. Supported qualification efforts and reduced layout iteration time.',
-    gradient: 'linear-gradient(135deg, #fee2e2, #fde68a)',
-  },
-  {
-    title: 'Multi-Up Wire Bonding Fixture',
-    category: 'Manufacturing',
-    description:
-      'Precision fixturing system for wire-bonding operations in DoW-qualified microelectronics manufacturing programs.',
-    tags: ['Fixturing', 'Wire Bonding', 'DoW Qualification'],
-    imageUrl:
-      'https://framerusercontent.com/images/DfzwHQ9Vtgtg5HD5neepVE4G68.jpg',
-    details:
-      'Built multi-up fixtures that reduced setup time and improved alignment repeatability. Documented critical dimensions and inspection workflows to support production.',
-    gradient: 'linear-gradient(135deg, #dcfce7, #a7f3d0)',
-  },
-  {
-    title: '5 DoF AprilTag Robotic Arm',
-    category: 'Mechatronics',
-    description:
-      '3D-printed 5-DoF robotic arm with AprilTag-based targeting, a custom inverse kinematics solver, and a React web UI. Controlled via Python on a Raspberry Pi over UART to a Duet 3 Mini 5+.',
-    tags: ['Python', 'AprilTag', 'Inverse Kinematics', 'Raspberry Pi', 'React'],
-    imageUrl: '/arm.png',
-    details:
-      'Led development of a personal 3D-printed 5-DoF robotic arm project. Built a custom inverse kinematics solver to compute joint angles from target poses detected via AprilTag computer vision. Designed a React web interface for real-time arm control, backed by a Python server running on a Raspberry Pi that communicates with a Duet 3 Mini 5+ motion controller over UART.',
-    gradient: 'linear-gradient(135deg, #dcfce7, #bbf7d0)',
-  },
-  {
-    title: 'PIC Probing Station',
-    category: 'Mechatronics',
-    description:
-      'Automated benchtop probing machine for Photonic Integrated Circuits combining mechanical design, automation, and software control.',
-    tags: ['Mechatronics', 'Photonics', 'Automation'],
-    companyLogo: '/CFD_Blue-horizontal-logo.webp',
-    details:
-      'Integrated motion control, probing mechanics, and software for repeatable test workflows. Improved probing accuracy while streamlining operator setup.',
-    gradient: 'linear-gradient(135deg, #e0f2fe, #c7d2fe)',
-  },
-  {
-    title: 'TALOS - Thermal Aerial Lift System',
-    category: 'UAS',
-    description:
-      'Project manager for MUAV group developing thermal aerial observation systems for Mars exploration research at Florida Tech ARES.',
-    tags: ['UAS', 'Project Management', 'Research'],
-    imageUrl:
-      'https://framerusercontent.com/images/zsTqWPQbuuMtuIKKO7i1qWsY.png',
-    details:
-      'Led system planning, payload integration strategy, and test schedules for thermal imaging missions. Coordinated team deliverables and requirement tracking.',
-    gradient: 'linear-gradient(135deg, #fde68a, #fecaca)',
-  },
-  {
-    title: 'Aeroversa Systems',
-    category: 'UAS',
-    description:
-      'Startup developing modular drone platforms for industrial inspection to increase mission efficiency and specialization.',
-    tags: ['Startup', 'UAV Design', 'Systems Engineering'],
-    imageUrl:
-      'https://framerusercontent.com/images/fTtGOacsc4zL2WzIEctyEEosjTw.png',
-    details:
-      'Developed modular payload bays, structural concepts, and avionics integration approach for multi-mission inspection work.',
-    gradient: 'linear-gradient(135deg, #f3e8ff, #c4b5fd)',
-  },
-  {
-    title: 'Camera Telemetry Stabilization',
-    category: 'Computer Vision',
-    description:
-      'Computer vision framework for drone stabilization using downfacing cameras and Apriltag processing for positioning data.',
-    tags: ['Computer Vision', 'Python', 'UAS'],
-    imageUrl:
-      'https://framerusercontent.com/images/jSNB4ow0iohs8xvHntYv9KSRM.png',
-    details:
-      'Implemented AprilTag pose estimation and control loops to stabilize a drone over a target. Built simulations for tuning and performance verification.',
-    gradient: 'linear-gradient(135deg, #cffafe, #99f6e4)',
-  },
-  {
-    title: 'Interactive PLM System',
-    category: 'Software',
-    description:
-      'Advanced Product Lifecycle Management system with dependency tracking and interactive visualization for engineering workflows.',
-    tags: ['PLM', 'Software', 'Systems Engineering'],
-    imageUrl:
-      'https://framerusercontent.com/images/JVAstl52cVR86eFVzDRUj3wiCU.jpg',
-    details:
-      'Built a desktop PLM prototype with dependency graphs, revision tracking, and search workflows to speed part navigation.',
-    gradient: 'linear-gradient(135deg, #f1f5f9, #e2e8f0)',
-  },
-  {
-    title: 'Menzi Muck M220x Reverse Engineering',
-    category: 'Mechanical Design',
-    description:
-      'Complete reverse engineering analysis of Menzi Muck walking excavator including mechanical systems, hydraulics, and documentation.',
-    tags: ['Reverse Engineering', 'CAD', 'Mechanical Systems'],
-    imageUrl:
-      'https://framerusercontent.com/images/TrR3HJE5jRlil3i82iFZNjJMCm8.jpg',
-    details:
-      'Generated subsystem models and assembly drawings from technical documentation. Documented mechanical interfaces and motion constraints.',
-    gradient: 'linear-gradient(135deg, #fef3c7, #e5e7eb)',
-  },
-  {
-    title: 'SBIR Proposal & Go-to-Market Strategy',
-    category: 'Business Development',
-    description:
-      'Contributed to NSIC SBIR submission strategy by building a dual-use concept and commercialization narrative for a photonics anti-jamming product.',
-    tags: ['SBIR', 'Dual-Use Strategy', 'Go-to-Market', 'Defense'],
-    details:
-      'Identified proposal compliance issues, translated technical performance reports into evaluable proposal language, and developed market-positioning arguments used in pitch-deck materials.',
-    gradient: 'linear-gradient(135deg, #d1fae5, #bfdbfe)',
-  },
-  {
-    title: 'Product & Technology Roadmapping Project',
-    category: 'Software',
-    description:
-      'Built a Python application that parses Excel templates into multi-layer technology and capability roadmap visualizations on a unified timeline.',
-    tags: ['Python', 'Roadmapping', 'Data Visualization', 'Excel'],
-    details:
-      'Implemented chart generation for technology, capability, and roadmap datasets with risk, budget, and schedule overlays to support strategic planning and investor communication.',
-    gradient: 'linear-gradient(135deg, #e0e7ff, #ddd6fe)',
-  },
-  {
-    title: 'FOM Analysis and Modeling Project',
-    category: 'Data Analysis',
-    description:
-      'Developed modeling tools to graph product figures of merit (FOM) over development cycles and estimate state-of-the-art (SOTA) competitiveness boundaries.',
-    tags: ['FOM', 'SOTA Analysis', 'Modeling', 'Competitive Benchmarking'],
-    details:
-      'Compiled competitor specification datasets and generated trend-based boundaries to evaluate projected product effectiveness against market performance targets.',
-    gradient: 'linear-gradient(135deg, #fef9c3, #dbeafe)',
-  },
-]
+// projects + filters come from src/projectsData.js (shared with the static
+// project-page generator at scripts/build-project-pages.mjs).
 
 const education = {
   degree: 'B.S. Mechanical Engineering',
@@ -358,19 +201,12 @@ const education = {
 }
 
 function App() {
-  const [activeFilter, setActiveFilter] = useState('All')
-  const [activeProject, setActiveProject] = useState(null)
   const [isMenuOpen, setIsMenuOpen] = useState(false)
-
-  const visibleProjects = useMemo(() => {
-    if (activeFilter === 'All') return projects
-    return projects.filter((project) => project.category === activeFilter)
-  }, [activeFilter])
 
   return (
     <div className="app">
       <header className="topbar">
-        <div className="logo">Portfolio</div>
+        <div className="logo">Joshua Tarara</div>
         <button
           className={isMenuOpen ? 'menu-toggle open' : 'menu-toggle'}
           type="button"
@@ -406,8 +242,8 @@ function App() {
             <a className="primary" href="#contact">
               Get in Touch
             </a>
-            <a className="ghost" href="#projects">
-              View Projects
+            <a className="ghost" href="/projects/index.html">
+              View all Projects
             </a>
           </div>
           <div className="hero-links">
@@ -540,21 +376,13 @@ function App() {
             A selection of engineering projects showcasing problem-solving skills
             and technical expertise.
           </p>
-          <div className="filters">
-            {filters.map((filter) => (
-              <button
-                key={filter}
-                className={filter === activeFilter ? 'filter active' : 'filter'}
-                onClick={() => setActiveFilter(filter)}
-                type="button"
-              >
-                {filter}
-              </button>
-            ))}
-          </div>
           <div className="project-grid">
-            {visibleProjects.map((project) => (
-              <article className="project-card" key={project.title}>
+            {featuredProjects.map((project) => (
+              <a
+                className="project-card"
+                key={project.title}
+                href={`/projects/${project.slug}.html`}
+              >
                 <div
                   className="project-media"
                   aria-hidden="true"
@@ -578,15 +406,18 @@ function App() {
                     ))}
                   </div>
                 </div>
-                <button
-                  className="link-btn"
-                  type="button"
-                  onClick={() => setActiveProject(project)}
-                >
+                <span className="link-btn" aria-hidden="true">
                   View Project →
-                </button>
-              </article>
+                </span>
+              </a>
             ))}
+          </div>
+          <div className="see-all-wrap">
+            <a className="see-all-pill" href="/projects/index.html">
+              See all projects
+              <span className="see-all-count">{projects.length}</span>
+              <span className="see-all-arrow" aria-hidden="true">→</span>
+            </a>
           </div>
         </section>
 
@@ -668,29 +499,6 @@ function App() {
         </section>
       </main>
 
-      {activeProject && (
-        <div className="project-modal" role="dialog" aria-modal="true">
-          <div className="project-modal-card">
-            <button
-              className="modal-close"
-              type="button"
-              onClick={() => setActiveProject(null)}
-            >
-              Close
-            </button>
-            <p className="project-category">{activeProject.category}</p>
-            <h3>{activeProject.title}</h3>
-            <p>{activeProject.details}</p>
-            <div className="pill-row">
-              {activeProject.tags.map((tag) => (
-                <span key={tag} className="pill light">
-                  {tag}
-                </span>
-              ))}
-            </div>
-          </div>
-        </div>
-      )}
     </div>
   )
 }

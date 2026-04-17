@@ -5,6 +5,8 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
+    "generate:projects": "node scripts/build-project-pages.mjs",
+    "prebuild": "npm run generate:projects",
     "build": "vite build",
     "lint": "eslint .",
     "preview": "vite preview"

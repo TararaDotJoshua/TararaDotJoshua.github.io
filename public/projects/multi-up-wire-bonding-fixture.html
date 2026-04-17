@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Multi-Up Wire Bonding Fixture · Joshua Tarara</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<style>
+
+:root {
+  --clay-panel-alt:#f7f8fb; --clay-panel:#eef1f5;
+  --clay-highlight:rgba(255,255,255,0.9);
+  --clay-shadow-soft:rgba(31,41,55,0.06);
+  --clay-shadow:rgba(31,41,55,0.12);
+  --ink:#1a1f2e; --muted:#5a6578;
+  --accent:#2563eb; --accent-soft:#dbeafe;
+  --ease:cubic-bezier(0.4,0,0.2,1);
+}
+* { box-sizing:border-box; margin:0; padding:0; }
+html { scroll-behavior:smooth; }
+body {
+  font-family:'Manrope',sans-serif;
+  background:radial-gradient(circle at top,#f5f6f8 0%,#eceff3 55%,#e7ebf0 100%);
+  color:var(--ink); line-height:1.65; min-height:100vh;
+}
+.app { padding:24px clamp(16px,4vw,40px) 80px; max-width:1280px; margin:0 auto; }
+.topbar {
+  display:flex; align-items:center; justify-content:space-between; gap:24px;
+  position:sticky; top:18px; z-index:5;
+  background:rgba(247,248,251,0.85); backdrop-filter:blur(16px) saturate(1.6);
+  -webkit-backdrop-filter:blur(16px) saturate(1.6);
+  border-radius:999px; padding:14px 26px;
+  box-shadow:inset 0 1px 0 var(--clay-highlight),0 8px 32px var(--clay-shadow-soft);
+  border:1px solid rgba(255,255,255,0.6);
+}
+.logo { font-family:'Sora',sans-serif; font-weight:700; letter-spacing:-0.03em; font-size:1.05rem; }
+.topbar nav { display:flex; gap:6px; font-size:0.92rem; }
+.topbar nav a {
+  padding:6px 14px; border-radius:999px;
+  color:var(--muted); text-decoration:none; transition:0.25s var(--ease);
+}
+.topbar nav a.current { color:var(--ink); font-weight:600; background:var(--accent-soft); }
+.topbar nav a:hover { color:var(--ink); }
+.crumbs-back {
+  font-family:'Sora',sans-serif; font-size:0.82rem; color:var(--muted);
+  text-decoration:none; padding:8px 14px; border-radius:999px;
+}
+.crumbs-back:hover { background:var(--clay-panel); color:var(--ink); }
+.eyebrow {
+  display:inline-flex; gap:8px;
+  font-family:'Sora',sans-serif; font-size:0.7rem; letter-spacing:0.2em;
+  text-transform:uppercase; color:var(--accent); font-weight:700;
+  background:var(--accent-soft); padding:6px 12px; border-radius:999px;
+  width:fit-content;
+}
+.pill-row { display:flex; gap:8px; flex-wrap:wrap; }
+.pill {
+  font-size:0.8rem; padding:6px 12px;
+  background:#fff; border-radius:999px;
+  color:var(--ink); font-weight:500;
+  box-shadow:inset 0 1px 0 var(--clay-highlight),0 3px 10px var(--clay-shadow-soft);
+}
+.pill.light { background:var(--clay-panel); box-shadow:none; }
+
+.layout {
+  display:grid; grid-template-columns:300px 1fr; gap:28px; margin-top:32px;
+  align-items:start;
+}
+.sidebar {
+  position:sticky; top:100px;
+  display:flex; flex-direction:column; gap:14px;
+}
+.side-card {
+  background:var(--clay-panel-alt); border-radius:22px; padding:22px 24px;
+  box-shadow:inset 0 1px 0 var(--clay-highlight),0 8px 24px var(--clay-shadow-soft);
+  border:1px solid rgba(255,255,255,0.5);
+}
+.side-card .hd {
+  font-family:'Sora',sans-serif; font-size:0.64rem; letter-spacing:0.2em;
+  text-transform:uppercase; color:var(--accent); font-weight:700;
+  padding-bottom:12px; margin-bottom:10px;
+  border-bottom:1px solid rgba(31,41,55,0.08);
+}
+.fact-row {
+  display:flex; justify-content:space-between; align-items:baseline;
+  padding:7px 0; border-bottom:1px dotted rgba(31,41,55,0.08);
+  font-size:0.85rem;
+}
+.fact-row:last-child { border-bottom:none; }
+.fact-row .k {
+  color:var(--muted); font-family:'Sora',sans-serif;
+  font-size:0.66rem; letter-spacing:0.1em; text-transform:uppercase; font-weight:600;
+}
+.fact-row .v { color:var(--ink); font-weight:500; text-align:right; }
+.fact-row .v.hl { color:var(--accent); font-weight:600; }
+.nav-list { list-style:none; display:flex; flex-direction:column; gap:2px; }
+.nav-list li a {
+  display:flex; align-items:center; gap:10px;
+  padding:8px 10px; border-radius:10px; text-decoration:none;
+  color:var(--muted); font-size:0.88rem;
+  font-family:'Sora',sans-serif; font-weight:500;
+  transition:0.18s var(--ease);
+}
+.nav-list li a:hover,
+.nav-list li a.active {
+  background:var(--clay-panel); color:var(--ink);
+}
+.nav-list li a .n {
+  color:var(--accent); font-weight:700; font-variant-numeric:tabular-nums;
+  font-size:0.78rem; min-width:22px;
+}
+.side-card.stack .pill-row .pill { font-size:0.74rem; padding:4px 10px; }
+.content { min-width:0; display:flex; flex-direction:column; gap:18px; }
+.hero-card {
+  background:var(--clay-panel-alt); border-radius:26px; padding:30px 34px;
+  box-shadow:inset 0 1px 0 var(--clay-highlight),0 10px 30px var(--clay-shadow-soft);
+  border:1px solid rgba(255,255,255,0.5);
+  display:flex; flex-direction:column; gap:12px;
+}
+h1 {
+  font-family:'Sora',sans-serif; font-weight:600;
+  font-size:clamp(2rem,3.6vw,2.6rem); letter-spacing:-0.03em; line-height:1.05;
+}
+h1 .ac { color:var(--accent); }
+.hero-card .lede { color:var(--muted); font-size:1rem; max-width:680px; }
+.star-block {
+  scroll-margin-top:100px;
+  display:grid; grid-template-columns:180px 1fr; gap:24px; align-items:start;
+  background:var(--clay-panel-alt); border-radius:24px; padding:28px 32px;
+  box-shadow:inset 0 1px 0 var(--clay-highlight),0 8px 26px var(--clay-shadow-soft);
+  border:1px solid rgba(255,255,255,0.5);
+  transition:transform 0.3s var(--ease), box-shadow 0.3s var(--ease);
+}
+.star-block:hover {
+  transform:translateY(-2px);
+  box-shadow:inset 0 1px 0 var(--clay-highlight),0 14px 34px var(--clay-shadow);
+}
+.star-block .label {
+  display:flex; flex-direction:column; gap:4px; padding-top:4px;
+}
+.star-block .label .num {
+  font-family:'Sora',sans-serif; font-size:2.4rem; font-weight:700;
+  line-height:1; color:var(--accent); letter-spacing:-0.03em;
+}
+.star-block .label .hd {
+  font-family:'Sora',sans-serif; font-size:0.68rem; letter-spacing:0.22em;
+  text-transform:uppercase; color:var(--muted); font-weight:700;
+}
+.star-block .body h2 {
+  font-family:'Sora',sans-serif; font-size:1.25rem; font-weight:600;
+  letter-spacing:-0.02em; line-height:1.3; margin-bottom:8px;
+}
+.star-block .body p {
+  color:#2a3144; font-size:0.95rem; line-height:1.62; margin-bottom:6px;
+}
+.star-block .body p:last-child { margin-bottom:0; }
+.star-block .body p strong { color:var(--ink); font-weight:600; }
+.star-block .body .pill-row { margin-top:10px; }
+.mini-metrics {
+  display:grid; grid-template-columns:repeat(4,1fr); gap:8px; margin-top:12px;
+}
+.mini-metrics .mini {
+  background:#fff; border-radius:13px; padding:11px 14px;
+  box-shadow:inset 0 1px 0 var(--clay-highlight),0 3px 10px var(--clay-shadow-soft);
+}
+.mini-metrics .k {
+  font-family:'Sora',sans-serif; font-size:0.56rem; letter-spacing:0.14em;
+  text-transform:uppercase; color:var(--muted); font-weight:600;
+}
+.mini-metrics .v {
+  font-family:'Sora',sans-serif; font-size:1.15rem; font-weight:700;
+  color:var(--accent); margin-top:2px; letter-spacing:-0.02em;
+}
+.back-strip {
+  display:flex; justify-content:space-between; align-items:center;
+  padding:16px 22px; margin-top:8px;
+  background:var(--clay-panel-alt); border-radius:18px;
+  box-shadow:inset 0 1px 0 var(--clay-highlight),0 6px 18px var(--clay-shadow-soft);
+  border:1px solid rgba(255,255,255,0.5);
+}
+.back-strip a {
+  font-family:'Sora',sans-serif; font-weight:600;
+  color:var(--accent); text-decoration:none; font-size:0.9rem;
+}
+.back-strip .center { font-size:0.78rem; color:var(--muted); font-style:italic; }
+@media (max-width:960px) {
+  .layout { grid-template-columns:1fr; }
+  .sidebar { position:static; }
+  .star-block { grid-template-columns:1fr; gap:14px; padding:24px 26px; }
+  .star-block .label { flex-direction:row; align-items:baseline; gap:14px; }
+  .star-block .label .num { font-size:2rem; }
+  .mini-metrics { grid-template-columns:repeat(2,1fr); }
+  .topbar nav { display:none; }
+}
+</style>
+</head>
+<body>
+<div class="app">
+  <header class="topbar">
+    <div class="logo">Joshua Tarara</div>
+    <nav>
+      <a href="/#about">About</a>
+      <a href="/#skills">Skills</a>
+      <a href="/#experience">Experience</a>
+      <a class="current" href="/projects/index.html">Projects</a>
+      <a href="/#education">Education</a>
+    </nav>
+    <a class="crumbs-back" href="/projects/index.html">← All projects</a>
+  </header>
+
+  <div class="layout">
+    <aside class="sidebar">
+      <div class="side-card">
+        <div class="hd">Fact Sheet</div>
+      <div class="fact-row"><span class="k">Category</span><span class="v">Manufacturing</span></div>
+      <div class="fact-row"><span class="k">Role</span><span class="v">Mechanical intern</span></div>
+      <div class="fact-row"><span class="k">Employer</span><span class="v">Mercury Systems</span></div>
+      <div class="fact-row"><span class="k">Program status</span><span class="v">DoW-qualified</span></div>
+      <div class="fact-row"><span class="k">Deliverable</span><span class="v">Hardware + FAI + procedure</span></div>
+      </div>
+      <div class="side-card">
+        <div class="hd">On This Page</div>
+        <ul class="nav-list">
+          <li><a href="#the-problem"><span class="n">01</span>The Problem</a></li>
+          <li><a href="#my-approach"><span class="n">02</span>My Approach</a></li>
+          <li><a href="#the-action"><span class="n">03</span>The Action</a></li>
+          <li><a href="#the-result"><span class="n">04</span>The Result</a></li>
+        </ul>
+      </div>
+      <div class="side-card stack">
+        <div class="hd">Tech Stack</div>
+        <div class="pill-row"><span class="pill">Fixturing</span><span class="pill">Wire Bonding</span><span class="pill">DoW Qualification</span><span class="pill">SolidWorks</span></div>
+      </div>
+    </aside>
+
+    <main class="content">
+      <div class="hero-card">
+        <span class="eyebrow">Manufacturing · 2023 – 2024</span>
+        <h1>Multi-Up Wire Bonding <span class="ac">Fixture.</span></h1>
+        <p class="lede">Aluminum and spring-retained multi-up wire bonding fixture for a DoW-qualified microelectronics line. Machined alignment edge on the platform datum, repeatable clamp scheme, FAI documentation.</p>
+      </div>
+
+      <section id="the-problem" class="star-block">
+        <div class="label"><span class="num">01</span><span class="hd">The Problem</span></div>
+        <div class="body">
+          <h2>Single-up bonding was the bottleneck on a qualified program.</h2>
+          <p>Operators spent most of the shift aligning parts by hand before each bond run. Each manual setup risked drifting outside qualified tolerances, and throughput was limited to one part at a time.</p>
+        </div>
+      </section>
+
+      <section id="my-approach" class="star-block">
+        <div class="label"><span class="num">02</span><span class="hd">My Approach</span></div>
+        <div class="body">
+          <h2>Multi-up, spring-retained fixture with a machined datum edge.</h2>
+          <p>Designed a machined aluminum alignment edge referenced to the platform datum so products locate without operator judgment. Spring retention holds each part down consistently across the carrier. Drove all critical dimensions from the bond head tolerance budget rather than the housing envelope.</p>
+        </div>
+      </section>
+
+      <section id="the-action" class="star-block">
+        <div class="label"><span class="num">03</span><span class="hd">The Action</span></div>
+        <div class="body">
+          <h2>Released drawings, FAI notes, and an operator procedure.</h2>
+          <p>Designed the fixture in SolidWorks. Coordinated machining of the aluminum alignment edge. Ran first article inspection against the bond head tolerance budget and documented the results. Released an operator procedure for loading and retaining parts.</p>
+          <div class="pill-row"><span class="pill light">SolidWorks</span><span class="pill light">Multi-up</span><span class="pill light">Spring retention</span><span class="pill light">Datum edge</span><span class="pill light">FAI</span><span class="pill light">Operator procedure</span></div>
+        </div>
+      </section>
+
+      <section id="the-result" class="star-block">
+        <div class="label"><span class="num">04</span><span class="hd">The Result</span></div>
+        <div class="body">
+          <h2>Per-part alignment eliminated; run-to-run variation held within acceptance.</h2>
+          <p>The machined datum edge removed operator-to-operator variability in part placement. The spring-retained multi-up carrier increased parts bonded per run. Program maintained its DoW qualification through the fixture changeover.</p>
+        </div>
+      </section>
+      <div class="back-strip">
+        <a href="/projects/index.html">← All projects</a>
+        <span class="center">Manufacturing</span>
+        <a href="/#projects">Back to home →</a>
+      </div>
+    </main>
+  </div>
+</div>
+
+<script>
+  (function () {
+    const links = document.querySelectorAll('.nav-list a');
+    const sections = Array.from(links)
+      .map((a) => document.querySelector(a.getAttribute('href')))
+      .filter(Boolean);
+    if (!sections.length) return;
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((e) => {
+        if (!e.isIntersecting) return;
+        const id = '#' + e.target.id;
+        links.forEach((a) => a.classList.toggle('active', a.getAttribute('href') === id));
+      });
+    }, { rootMargin: '-40% 0px -55% 0px', threshold: 0 });
+    sections.forEach((s) => io.observe(s));
+  })();
+</script>
+</body>
+</html>
