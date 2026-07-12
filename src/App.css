@@ -499,6 +499,11 @@ button:hover,
   margin-bottom: 6px;
 }
 
+.experience-logo-square {
+  height: 52px;
+  margin-bottom: 10px;
+}
+
 .experience-header {
   display: flex;
   justify-content: space-between;

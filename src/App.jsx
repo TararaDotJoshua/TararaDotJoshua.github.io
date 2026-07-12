@@ -114,6 +114,19 @@ const skills = [
 const experience = [
   {
     role: 'Mechanical Engineering Intern',
+    company: 'L3Harris',
+    logo: '/L3logo.webp',
+    timeframe: 'May 2026 - Jul 2026',
+    bullets: [
+      'Completed engineering work supporting L3Harris\u2019 IVER-class autonomous underwater vehicles',
+      'Developed source-of-truth digital twins of legacy and production vehicles and their electrical systems, including BOM and PDM data, in the company\u2019s new engineering software',
+      'Used vehicle digital twins to perform thermal simulations of onboard electrical systems',
+      'Supported floor-level manufacturing of L3Harris MariPro maritime systems',
+      'Developed a CAD/PDM automation workflow that reduced non-value-added billable time by more than 95%',
+    ],
+  },
+  {
+    role: 'Mechanical Engineering Intern',
     company: 'Critical Frequency Design',
     logo: '/CFD_Blue-horizontal-logo.webp',
     timeframe: 'May 2025 - Aug 2025',
@@ -349,7 +362,7 @@ function App() {
                   <img
                     src={job.logo}
                     alt={`${job.company} logo`}
-                    className="experience-logo"
+                    className={`experience-logo${job.company === 'L3Harris' ? ' experience-logo-square' : ''}`}
                   />
                 )}
                 <div className="experience-header">
@@ -357,7 +370,7 @@ function App() {
                     <h3>{job.role}</h3>
                     <p className="company">{job.company}</p>
                   </div>
-                  <span className="date">{job.timeframe}</span>
+                  {job.timeframe && <span className="date">{job.timeframe}</span>}
                 </div>
                 <ul>
                   {job.bullets.map((bullet) => (
