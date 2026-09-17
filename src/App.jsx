@@ -107,7 +107,6 @@ function Projects() {
           </motion.a>
         ))}
       </div>
-      <a className="text-link" href="/projects/index.html">View all projects <ArrowUpRight /></a>
     </section>
   );
 }
