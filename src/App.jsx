@@ -3,6 +3,7 @@ import { motion, useScroll, useSpring, useTransform } from "framer-motion";
 import { lazy, Suspense, useEffect, useState } from "react";
 import { GradientWave } from "./GradientWave.jsx";
 import { capabilities, education, experience, profile, projects } from "./data.js";
+import { Linktree } from "./Linktree.jsx";
 
 const qaMode = new URLSearchParams(window.location.search).has("qa");
 const HeroCycloidalDrive = lazy(() => import("./HeroCycloidalDrive.jsx").then(({ HeroCycloidalDrive: Drive }) => ({ default: Drive })));
@@ -244,5 +245,9 @@ function Contact() {
 }
 
 export function App() {
+  if (window.location.pathname === "/linktree" || window.location.pathname === "/linktree/") {
+    return <Linktree />;
+  }
+
   return <div className="site-shell"><Header /><main><Hero /><About /><Skills /><Experience /><Projects /><Education /></main><Contact /></div>;
 }
