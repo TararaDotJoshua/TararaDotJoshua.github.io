@@ -1,11 +1,12 @@
 import { ArrowDown, ArrowUpRight } from "@phosphor-icons/react";
 import { motion, useScroll, useSpring, useTransform } from "framer-motion";
-import { useEffect, useState } from "react";
+import { lazy, Suspense, useEffect, useState } from "react";
 import { GradientWave } from "./GradientWave.jsx";
-import { HeroCycloidalDrive } from "./HeroCycloidalDrive.jsx";
 import { capabilities, education, experience, profile, projects } from "./data.js";
 
 const qaMode = new URLSearchParams(window.location.search).has("qa");
+const HeroCycloidalDrive = lazy(() => import("./HeroCycloidalDrive.jsx").then(({ HeroCycloidalDrive: Drive }) => ({ default: Drive })));
+const actuatorMediaQuery = "(min-width: 1024px)";
 
 const reveal = qaMode ? {} : {
   initial: { opacity: 0, y: 28 },
@@ -62,7 +63,23 @@ function Header() {
   );
 }
 
+function useActuatorViewport() {
+  const [showActuator, setShowActuator] = useState(() => window.matchMedia(actuatorMediaQuery).matches);
+
+  useEffect(() => {
+    const mediaQuery = window.matchMedia(actuatorMediaQuery);
+    const update = () => setShowActuator(mediaQuery.matches);
+    update();
+    mediaQuery.addEventListener("change", update);
+    return () => mediaQuery.removeEventListener("change", update);
+  }, []);
+
+  return showActuator;
+}
+
 function Hero() {
+  const showActuator = useActuatorViewport();
+
   return (
     <section className="hero" id="top">
       <div className="gradient-layer" aria-hidden="true">
@@ -82,7 +99,11 @@ function Hero() {
           </a>
         </motion.div>
       </div>
-      <HeroCycloidalDrive />
+      {showActuator && (
+        <Suspense fallback={null}>
+          <HeroCycloidalDrive />
+        </Suspense>
+      )}
     </section>
   );
 }
