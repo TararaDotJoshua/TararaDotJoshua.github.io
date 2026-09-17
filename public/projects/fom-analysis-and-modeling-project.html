@@ -1,304 +1,163 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>FOM Analysis and Modeling Project · Joshua Tarara</title>
-<link rel="preconnect" href="https://fonts.googleapis.com" />
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet" />
-<style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="FOM Analysis and Modeling Project. by Joshua Tarara" />
+  <title>FOM Analysis and Modeling Project · Joshua Tarara</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --surface: #0a0a0b;
+      --surface-raised: #111113;
+      --ink: #f5f4ef;
+      --muted: rgba(245, 244, 239, .6);
+      --hairline: rgba(255, 255, 255, .19);
+      --page-pad: clamp(1.25rem, 4.8vw, 4.5rem);
+      --max-width: 88rem;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; background: var(--surface); }
+    body { min-width: 320px; margin: 0; background: var(--surface); color: var(--ink); font-family: "DM Sans", Arial, sans-serif; font-weight: 400; }
+    a { color: inherit; text-decoration: none; }
+    ::selection { background: #ff3f13; color: #fff; }
 
-:root {
-  --clay-panel-alt:#f7f8fb; --clay-panel:#eef1f5;
-  --clay-highlight:rgba(255,255,255,0.9);
-  --clay-shadow-soft:rgba(31,41,55,0.06);
-  --clay-shadow:rgba(31,41,55,0.12);
-  --ink:#1a1f2e; --muted:#5a6578;
-  --accent:#2563eb; --accent-soft:#dbeafe;
-  --ease:cubic-bezier(0.4,0,0.2,1);
-}
-* { box-sizing:border-box; margin:0; padding:0; }
-html { scroll-behavior:smooth; }
-body {
-  font-family:'Manrope',sans-serif;
-  background:radial-gradient(circle at top,#f5f6f8 0%,#eceff3 55%,#e7ebf0 100%);
-  color:var(--ink); line-height:1.65; min-height:100vh;
-}
-.app { padding:24px clamp(16px,4vw,40px) 80px; max-width:1280px; margin:0 auto; }
-.topbar {
-  display:flex; align-items:center; justify-content:space-between; gap:24px;
-  position:sticky; top:18px; z-index:5;
-  background:rgba(247,248,251,0.85); backdrop-filter:blur(16px) saturate(1.6);
-  -webkit-backdrop-filter:blur(16px) saturate(1.6);
-  border-radius:999px; padding:14px 26px;
-  box-shadow:inset 0 1px 0 var(--clay-highlight),0 8px 32px var(--clay-shadow-soft);
-  border:1px solid rgba(255,255,255,0.6);
-}
-.logo { font-family:'Sora',sans-serif; font-weight:700; letter-spacing:-0.03em; font-size:1.05rem; }
-.topbar nav { display:flex; gap:6px; font-size:0.92rem; }
-.topbar nav a {
-  padding:6px 14px; border-radius:999px;
-  color:var(--muted); text-decoration:none; transition:0.25s var(--ease);
-}
-.topbar nav a.current { color:var(--ink); font-weight:600; background:var(--accent-soft); }
-.topbar nav a:hover { color:var(--ink); }
-.crumbs-back {
-  font-family:'Sora',sans-serif; font-size:0.82rem; color:var(--muted);
-  text-decoration:none; padding:8px 14px; border-radius:999px;
-}
-.crumbs-back:hover { background:var(--clay-panel); color:var(--ink); }
-.eyebrow {
-  display:inline-flex; gap:8px;
-  font-family:'Sora',sans-serif; font-size:0.7rem; letter-spacing:0.2em;
-  text-transform:uppercase; color:var(--accent); font-weight:700;
-  background:var(--accent-soft); padding:6px 12px; border-radius:999px;
-  width:fit-content;
-}
-.pill-row { display:flex; gap:8px; flex-wrap:wrap; }
-.pill {
-  font-size:0.8rem; padding:6px 12px;
-  background:#fff; border-radius:999px;
-  color:var(--ink); font-weight:500;
-  box-shadow:inset 0 1px 0 var(--clay-highlight),0 3px 10px var(--clay-shadow-soft);
-}
-.pill.light { background:var(--clay-panel); box-shadow:none; }
+    .site-header {
+      position: fixed; z-index: 20; top: 0; left: 0; display: flex; width: 100%;
+      align-items: center; justify-content: space-between; padding: 1.45rem var(--page-pad);
+      border-bottom: 1px solid rgba(255, 255, 255, .14);
+      background: radial-gradient(ellipse at 46% 135%, rgba(167, 15, 111, .76), transparent 52%), linear-gradient(100deg, #4b160e 0%, #1b090d 28%, #3f0d61 62%, #123ed0 100%);
+      isolation: isolate;
+    }
+    .site-header::after, .project-hero::after {
+      position: absolute; z-index: -1; inset: 0; content: ""; opacity: .2;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.75'/%3E%3C/svg%3E");
+    }
+    .wordmark { font-size: 1.15rem; font-weight: 500; letter-spacing: -.05em; }
+    .site-nav { display: flex; gap: clamp(.8rem, 2vw, 2rem); font-size: .78rem; }
+    .site-nav a { color: rgba(245,244,239,.8); transition: opacity 180ms ease; }
+    .site-nav a:hover, .site-nav a[aria-current="page"] { color: #fff; }
+    .site-nav a:hover { opacity: .6; }
 
-.layout {
-  display:grid; grid-template-columns:300px 1fr; gap:28px; margin-top:32px;
-  align-items:start;
-}
-.sidebar {
-  position:sticky; top:100px;
-  display:flex; flex-direction:column; gap:14px;
-}
-.side-card {
-  background:var(--clay-panel-alt); border-radius:22px; padding:22px 24px;
-  box-shadow:inset 0 1px 0 var(--clay-highlight),0 8px 24px var(--clay-shadow-soft);
-  border:1px solid rgba(255,255,255,0.5);
-}
-.side-card .hd {
-  font-family:'Sora',sans-serif; font-size:0.64rem; letter-spacing:0.2em;
-  text-transform:uppercase; color:var(--accent); font-weight:700;
-  padding-bottom:12px; margin-bottom:10px;
-  border-bottom:1px solid rgba(31,41,55,0.08);
-}
-.fact-row {
-  display:flex; justify-content:space-between; align-items:baseline;
-  padding:7px 0; border-bottom:1px dotted rgba(31,41,55,0.08);
-  font-size:0.85rem;
-}
-.fact-row:last-child { border-bottom:none; }
-.fact-row .k {
-  color:var(--muted); font-family:'Sora',sans-serif;
-  font-size:0.66rem; letter-spacing:0.1em; text-transform:uppercase; font-weight:600;
-}
-.fact-row .v { color:var(--ink); font-weight:500; text-align:right; }
-.fact-row .v.hl { color:var(--accent); font-weight:600; }
-.nav-list { list-style:none; display:flex; flex-direction:column; gap:2px; }
-.nav-list li a {
-  display:flex; align-items:center; gap:10px;
-  padding:8px 10px; border-radius:10px; text-decoration:none;
-  color:var(--muted); font-size:0.88rem;
-  font-family:'Sora',sans-serif; font-weight:500;
-  transition:0.18s var(--ease);
-}
-.nav-list li a:hover,
-.nav-list li a.active {
-  background:var(--clay-panel); color:var(--ink);
-}
-.nav-list li a .n {
-  color:var(--accent); font-weight:700; font-variant-numeric:tabular-nums;
-  font-size:0.78rem; min-width:22px;
-}
-.side-card.stack .pill-row .pill { font-size:0.74rem; padding:4px 10px; }
-.content { min-width:0; display:flex; flex-direction:column; gap:18px; }
-.hero-card {
-  background:var(--clay-panel-alt); border-radius:26px; padding:30px 34px;
-  box-shadow:inset 0 1px 0 var(--clay-highlight),0 10px 30px var(--clay-shadow-soft);
-  border:1px solid rgba(255,255,255,0.5);
-  display:flex; flex-direction:column; gap:12px;
-}
-h1 {
-  font-family:'Sora',sans-serif; font-weight:600;
-  font-size:clamp(2rem,3.6vw,2.6rem); letter-spacing:-0.03em; line-height:1.05;
-}
-h1 .ac { color:var(--accent); }
-.hero-card .lede { color:var(--muted); font-size:1rem; max-width:680px; }
-.star-block {
-  scroll-margin-top:100px;
-  display:grid; grid-template-columns:180px 1fr; gap:24px; align-items:start;
-  background:var(--clay-panel-alt); border-radius:24px; padding:28px 32px;
-  box-shadow:inset 0 1px 0 var(--clay-highlight),0 8px 26px var(--clay-shadow-soft);
-  border:1px solid rgba(255,255,255,0.5);
-  transition:transform 0.3s var(--ease), box-shadow 0.3s var(--ease);
-}
-.star-block:hover {
-  transform:translateY(-2px);
-  box-shadow:inset 0 1px 0 var(--clay-highlight),0 14px 34px var(--clay-shadow);
-}
-.star-block .label {
-  display:flex; flex-direction:column; gap:4px; padding-top:4px;
-}
-.star-block .label .num {
-  font-family:'Sora',sans-serif; font-size:2.4rem; font-weight:700;
-  line-height:1; color:var(--accent); letter-spacing:-0.03em;
-}
-.star-block .label .hd {
-  font-family:'Sora',sans-serif; font-size:0.68rem; letter-spacing:0.22em;
-  text-transform:uppercase; color:var(--muted); font-weight:700;
-}
-.star-block .body h2 {
-  font-family:'Sora',sans-serif; font-size:1.25rem; font-weight:600;
-  letter-spacing:-0.02em; line-height:1.3; margin-bottom:8px;
-}
-.star-block .body p {
-  color:#2a3144; font-size:0.95rem; line-height:1.62; margin-bottom:6px;
-}
-.star-block .body p:last-child { margin-bottom:0; }
-.star-block .body p strong { color:var(--ink); font-weight:600; }
-.star-block .body .pill-row { margin-top:10px; }
-.mini-metrics {
-  display:grid; grid-template-columns:repeat(4,1fr); gap:8px; margin-top:12px;
-}
-.mini-metrics .mini {
-  background:#fff; border-radius:13px; padding:11px 14px;
-  box-shadow:inset 0 1px 0 var(--clay-highlight),0 3px 10px var(--clay-shadow-soft);
-}
-.mini-metrics .k {
-  font-family:'Sora',sans-serif; font-size:0.56rem; letter-spacing:0.14em;
-  text-transform:uppercase; color:var(--muted); font-weight:600;
-}
-.mini-metrics .v {
-  font-family:'Sora',sans-serif; font-size:1.15rem; font-weight:700;
-  color:var(--accent); margin-top:2px; letter-spacing:-0.02em;
-}
-.back-strip {
-  display:flex; justify-content:space-between; align-items:center;
-  padding:16px 22px; margin-top:8px;
-  background:var(--clay-panel-alt); border-radius:18px;
-  box-shadow:inset 0 1px 0 var(--clay-highlight),0 6px 18px var(--clay-shadow-soft);
-  border:1px solid rgba(255,255,255,0.5);
-}
-.back-strip a {
-  font-family:'Sora',sans-serif; font-weight:600;
-  color:var(--accent); text-decoration:none; font-size:0.9rem;
-}
-.back-strip .center { font-size:0.78rem; color:var(--muted); font-style:italic; }
-@media (max-width:960px) {
-  .layout { grid-template-columns:1fr; }
-  .sidebar { position:static; }
-  .star-block { grid-template-columns:1fr; gap:14px; padding:24px 26px; }
-  .star-block .label { flex-direction:row; align-items:baseline; gap:14px; }
-  .star-block .label .num { font-size:2rem; }
-  .mini-metrics { grid-template-columns:repeat(2,1fr); }
-  .topbar nav { display:none; }
-}
-</style>
+    main { overflow: hidden; }
+    .project-hero {
+      position: relative; display: grid; min-height: min(52rem, 92svh);
+      grid-template-columns: minmax(0, 1.18fr) minmax(18rem, .82fr); align-items: end;
+      gap: clamp(2rem, 6vw, 8rem); padding: clamp(10rem, 18vh, 13rem) var(--page-pad) clamp(4rem, 9vh, 7rem);
+      background: radial-gradient(ellipse 62% 92% at 7% 98%, rgba(230, 61, 21, .58), transparent 70%), radial-gradient(ellipse 45% 82% at 91% 22%, rgba(25, 70, 208, .65), transparent 69%), radial-gradient(ellipse 38% 70% at 54% 85%, rgba(174, 18, 114, .55), transparent 70%), #0a0a0b;
+      isolation: isolate;
+    }
+    .project-hero::after { opacity: .16; }
+    .project-hero > * { position: relative; }
+    .eyebrow, .section-index, .meta-label { margin: 0; color: rgba(245,244,239,.68); font-size: clamp(.7rem, .9vw, .84rem); font-weight: 500; letter-spacing: .2em; text-transform: uppercase; }
+    .hero-copy { max-width: 59rem; }
+    h1 { max-width: 56rem; margin: 1.45rem 0 1.7rem; font-size: clamp(3.8rem, 8.1vw, 9.25rem); font-weight: 300; letter-spacing: -.08em; line-height: .86; }
+    .project-summary { max-width: 40rem; margin: 0; color: rgba(245,244,239,.82); font-size: clamp(1.05rem, 1.55vw, 1.45rem); font-weight: 300; line-height: 1.48; }
+    .hero-aside { align-self: end; max-width: 30rem; border-top: 1px solid rgba(255,255,255,.42); }
+    .hero-aside p { margin: 1.05rem 0 0; color: rgba(245,244,239,.72); font-size: .95rem; line-height: 1.6; }
+    .scroll-hint { display: inline-flex; align-items: center; gap: .8rem; margin-top: 2.4rem; color: rgba(245,244,239,.75); font-size: .82rem; letter-spacing: .08em; }
+    .scroll-hint::before { width: 2.75rem; height: 1px; content: ""; background: currentColor; }
+
+    .facts { display: grid; grid-template-columns: repeat(4, 1fr); border-top: 1px solid var(--hairline); border-bottom: 1px solid var(--hairline); background: var(--surface); }
+    .fact { min-height: 10.5rem; padding: 2rem var(--page-pad); border-right: 1px solid var(--hairline); }
+    .fact:last-child { border-right: 0; }
+    .fact p:last-child { margin: 1.1rem 0 0; font-size: clamp(1rem, 1.5vw, 1.45rem); font-weight: 300; letter-spacing: -.035em; line-height: 1.25; }
+
+    .section { position: relative; padding: clamp(6rem, 12vw, 11rem) var(--page-pad); background: var(--surface); }
+    .section + .section { border-top: 1px solid var(--hairline); }
+    .section-inner { display: grid; max-width: var(--max-width); margin: 0 auto; grid-template-columns: minmax(10rem, .38fr) minmax(0, 1fr); gap: clamp(2.2rem, 7vw, 9rem); }
+    .section-index { padding-top: .65rem; }
+    .section-content h2 { max-width: 50rem; margin: 0 0 2.2rem; font-size: clamp(2.7rem, 5.3vw, 5.8rem); font-weight: 300; letter-spacing: -.07em; line-height: .93; }
+    .section-content > p { max-width: 48rem; margin: 0; color: rgba(245,244,239,.75); font-size: clamp(1.05rem, 1.45vw, 1.35rem); font-weight: 300; line-height: 1.65; }
+    .section-content > p + p { margin-top: 1.35rem; }
+    .outcome-list { display: grid; gap: 0; margin: 3.5rem 0 0; border-top: 1px solid var(--hairline); }
+    .outcome { display: grid; grid-template-columns: 3.4rem 1fr; gap: 1rem; padding: 1.7rem 0; border-bottom: 1px solid var(--hairline); }
+    .outcome-number { color: var(--muted); font-size: .76rem; letter-spacing: .12em; }
+    .outcome strong { display: block; margin-bottom: .48rem; font-size: clamp(1.15rem, 1.65vw, 1.55rem); font-weight: 400; letter-spacing: -.035em; }
+    .outcome p { margin: 0; color: var(--muted); line-height: 1.6; }
+
+    .challenge-section { background: #0d0d0f; }
+    .method-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); margin-top: 3.6rem; border-top: 1px solid var(--hairline); border-left: 1px solid var(--hairline); }
+    .method-card { min-height: 13.5rem; padding: clamp(1.6rem, 3vw, 2.75rem); border-right: 1px solid var(--hairline); border-bottom: 1px solid var(--hairline); }
+    .method-card span { color: var(--muted); font-size: .72rem; letter-spacing: .15em; }
+    .method-card h3 { margin: 2.6rem 0 .8rem; font-size: 1.2rem; font-weight: 400; letter-spacing: -.03em; }
+    .method-card p { max-width: 28rem; margin: 0; color: var(--muted); font-size: .92rem; line-height: 1.65; }
+
+    .quote-section { padding: clamp(7rem, 13vw, 13rem) var(--page-pad); background: var(--surface-raised); }
+    .quote { max-width: 76rem; margin: 0 auto; font-size: clamp(2.65rem, 6.3vw, 7.2rem); font-weight: 300; letter-spacing: -.075em; line-height: .94; }
+    .quote em { color: #d776f7; font-style: normal; }
+    .quote-credit { max-width: 76rem; margin: 2.25rem auto 0; color: var(--muted); font-size: .78rem; letter-spacing: .13em; text-transform: uppercase; }
+
+    .project-footer { padding: 3.2rem var(--page-pad) 2.2rem; border-top: 1px solid var(--hairline); background: var(--surface); }
+    .footer-nav { display: flex; max-width: var(--max-width); margin: 0 auto; align-items: center; justify-content: space-between; gap: 2rem; }
+    .footer-nav a { padding-bottom: .35rem; border-bottom: 1px solid transparent; color: rgba(245,244,239,.82); font-size: clamp(1rem, 1.4vw, 1.3rem); font-weight: 300; transition: border-color 160ms ease; }
+    .footer-nav a:hover { border-color: currentColor; }
+    .footer-meta { display: flex; max-width: var(--max-width); margin: 4.5rem auto 0; justify-content: space-between; gap: 2rem; color: var(--muted); font-size: .72rem; letter-spacing: .1em; text-transform: uppercase; }
+
+    @media (max-width: 800px) {
+      .site-header { padding-top: 1.15rem; padding-bottom: 1.15rem; }
+      .site-nav { gap: 1rem; font-size: .7rem; }
+      .site-nav a:nth-child(-n+3) { display: none; }
+      .project-hero { min-height: 46rem; grid-template-columns: 1fr; align-items: start; padding-top: 9rem; }
+      .hero-aside { align-self: end; }
+      .facts { grid-template-columns: repeat(2, 1fr); }
+      .fact { min-height: 8rem; padding: 1.7rem var(--page-pad); }
+      .fact:nth-child(2) { border-right: 0; }
+      .fact:nth-child(-n+2) { border-bottom: 1px solid var(--hairline); }
+      .section-inner { grid-template-columns: 1fr; gap: 2rem; }
+      .section-index { padding-top: 0; }
+      .method-grid { grid-template-columns: 1fr; }
+      .quote { max-width: 38rem; }
+    }
+    @media (max-width: 460px) {
+      .wordmark { font-size: 1rem; }
+      .site-nav { gap: .75rem; }
+      .facts { grid-template-columns: 1fr; }
+      .fact, .fact:nth-child(2) { border-right: 0; border-bottom: 1px solid var(--hairline); }
+      .fact:last-child { border-bottom: 0; }
+      .footer-nav, .footer-meta { align-items: flex-start; flex-direction: column; }
+    }
+    @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+  </style>
 </head>
 <body>
-<div class="app">
-  <header class="topbar">
-    <div class="logo">Joshua Tarara</div>
-    <nav>
-      <a href="/#about">About</a>
-      <a href="/#skills">Skills</a>
-      <a href="/#experience">Experience</a>
-      <a class="current" href="/#projects">Projects</a>
-      <a href="/#education">Education</a>
+  <header class="site-header">
+    <a class="wordmark" href="/#top" aria-label="Joshua Tarara, back to top">Joshua Tarara</a>
+    <nav class="site-nav" aria-label="Primary navigation">
+      <a href="/#about">About</a><a href="/#skills">Skills</a><a href="/#experience">Experience</a>
+      <a href="/#projects" aria-current="page">Projects</a><a href="/#education">Education</a>
     </nav>
-    <a class="crumbs-back" href="/#projects">← Featured projects</a>
   </header>
-
-  <div class="layout">
-    <aside class="sidebar">
-      <div class="side-card">
-        <div class="hd">Fact Sheet</div>
-      <div class="fact-row"><span class="k">Category</span><span class="v">Data Analysis</span></div>
-      <div class="fact-row"><span class="k">Role</span><span class="v">Analyst</span></div>
-      <div class="fact-row"><span class="k">Input</span><span class="v">Competitor specs</span></div>
-      <div class="fact-row"><span class="k">Output</span><span class="v">FOM vs. SOTA charts</span></div>
-      <div class="fact-row"><span class="k">Purpose</span><span class="v">Competitiveness framing</span></div>
+  <main>
+    <section class="project-hero" aria-labelledby="project-title">
+      <div class="hero-copy">
+        <p class="eyebrow">01 / Data Analysis · 2025</p>
+        <h1 id="project-title">FOM Analysis and<br>Modeling Project</h1>
+        <p class="project-summary">Modeling tool that plots product figures of merit against a state-of-the-art trend, projected to a target launch date.</p>
       </div>
-      <div class="side-card">
-        <div class="hd">On This Page</div>
-        <ul class="nav-list">
-          <li><a href="#the-problem"><span class="n">01</span>The Problem</a></li>
-          <li><a href="#my-approach"><span class="n">02</span>My Approach</a></li>
-          <li><a href="#the-action"><span class="n">03</span>The Action</a></li>
-          <li><a href="#the-result"><span class="n">04</span>The Result</a></li>
-        </ul>
-      </div>
-      <div class="side-card stack">
-        <div class="hd">Tech Stack</div>
-        <div class="pill-row"><span class="pill">FOM</span><span class="pill">SOTA Analysis</span><span class="pill">Modeling</span><span class="pill">Competitive Benchmarking</span></div>
-      </div>
-    </aside>
-
-    <main class="content">
-      <div class="hero-card">
-        <span class="eyebrow">Data Analysis · 2025</span>
-        <h1>FOM Analysis and Modeling <span class="ac">Project.</span></h1>
-        <p class="lede">Modeling tool that plots product figures of merit against a state-of-the-art trend, projected to a target launch date.</p>
-      </div>
-
-      <section id="the-problem" class="star-block">
-        <div class="label"><span class="num">01</span><span class="hd">The Problem</span></div>
-        <div class="body">
-          <h2>Competitor spec sheets do not answer &quot;competitive at launch?&quot;</h2>
-          <p>Need figures of merit plotted against a moving SOTA boundary projected to the launch date.</p>
-        </div>
-      </section>
-
-      <section id="my-approach" class="star-block">
-        <div class="label"><span class="num">02</span><span class="hd">My Approach</span></div>
-        <div class="body">
-          <h2>Derive FOMs per market and fit a SOTA trend.</h2>
-          <p>Pulled competitor datasets. Derived figures of merit. Fit a trend line that projects SOTA forward to the product launch window.</p>
-        </div>
-      </section>
-
-      <section id="the-action" class="star-block">
-        <div class="label"><span class="num">03</span><span class="hd">The Action</span></div>
-        <div class="body">
-          <h2>Built the dataset, the plotting tool, and the supporting analysis.</h2>
-          <p>Used in internal reviews to argue competitiveness against a documented baseline.</p>
-          <div class="pill-row"><span class="pill light">FOM</span><span class="pill light">SOTA boundary</span><span class="pill light">Trend fit</span><span class="pill light">Benchmarking</span></div>
-        </div>
-      </section>
-
-      <section id="the-result" class="star-block">
-        <div class="label"><span class="num">04</span><span class="hd">The Result</span></div>
-        <div class="body">
-          <h2>Single chart shows whether the product lands on the right side of the SOTA boundary at launch.</h2>
-          <p>Stakeholders can read competitiveness off one figure instead of cross-referencing spec tables.</p>
-        </div>
-      </section>
-      <div class="back-strip">
-        <a href="/#projects">← Featured projects</a>
-        <span class="center">Data Analysis</span>
-        <a href="/#projects">Back to home →</a>
-      </div>
-    </main>
-  </div>
-</div>
-
-<script>
-  (function () {
-    const links = document.querySelectorAll('.nav-list a');
-    const sections = Array.from(links)
-      .map((a) => document.querySelector(a.getAttribute('href')))
-      .filter(Boolean);
-    if (!sections.length) return;
-    const io = new IntersectionObserver((entries) => {
-      entries.forEach((e) => {
-        if (!e.isIntersecting) return;
-        const id = '#' + e.target.id;
-        links.forEach((a) => a.classList.toggle('active', a.getAttribute('href') === id));
-      });
-    }, { rootMargin: '-40% 0px -55% 0px', threshold: 0 });
-    sections.forEach((s) => io.observe(s));
-  })();
-</script>
+      <aside class="hero-aside"><p class="meta-label">Project premise</p><p>Competitor spec sheets do not answer &amp;quot;competitive at launch?&amp;quot;</p><a class="scroll-hint" href="#context">Read case study</a></aside>
+    </section>
+    <section class="facts" aria-label="Project facts">
+      <div class="fact"><p class="meta-label">Category</p><p>Data Analysis</p></div>
+      <div class="fact"><p class="meta-label">Role</p><p>Analyst</p></div>
+      <div class="fact"><p class="meta-label">Input</p><p>Competitor specs</p></div>
+      <div class="fact"><p class="meta-label">Output</p><p>FOM vs. SOTA charts</p></div>
+    </section>
+    <section class="section" id="context"><div class="section-inner"><p class="section-index">01 / Context</p><div class="section-content"><h2>Competitor spec sheets do not answer &amp;quot;competitive at launch?&amp;quot;</h2><p>Need figures of merit plotted against a moving SOTA boundary projected to the launch date.</p></div></div></section>
+    <section class="section challenge-section"><div class="section-inner"><p class="section-index">02 / System</p><div class="section-content"><h2>Derive FOMs per market and fit a SOTA trend.</h2><p>Pulled competitor datasets. Derived figures of merit. Fit a trend line that projects SOTA forward to the product launch window.</p><div class="method-grid">
+      <article class="method-card"><span>01</span><h3>FOM</h3><p>Used in internal reviews to argue competitiveness against a documented baseline.</p></article>
+      <article class="method-card"><span>02</span><h3>SOTA Analysis</h3><p>Used in internal reviews to argue competitiveness against a documented baseline.</p></article>
+      <article class="method-card"><span>03</span><h3>Modeling</h3><p>Used in internal reviews to argue competitiveness against a documented baseline.</p></article>
+      <article class="method-card"><span>04</span><h3>Competitive Benchmarking</h3><p>Used in internal reviews to argue competitiveness against a documented baseline.</p></article>
+    </div></div></div></section>
+    <section class="quote-section"><p class="quote">Single chart shows whether the product lands on the right side of the SOTA boundary at launch.</p><p class="quote-credit">Data Analysis · 2025 / project outcome</p></section>
+    <section class="section"><div class="section-inner"><p class="section-index">03 / Delivery</p><div class="section-content"><h2>Built the dataset, the plotting tool, and the supporting analysis.</h2><p>Used in internal reviews to argue competitiveness against a documented baseline.</p><div class="outcome-list">
+      <div class="outcome"><span class="outcome-number">01</span><div><strong>Single chart shows whether the product lands on the right side of the SOTA boundary at launch.</strong><p>Stakeholders can read competitiveness off one figure instead of cross-referencing spec tables.</p></div></div>
+      <div class="outcome"><span class="outcome-number">02</span><div><strong>Purpose</strong><p>Competitiveness framing</p></div></div>
+    </div></div></div></section>
+  </main>
+  <footer class="project-footer"><div class="footer-nav"><a href="/#projects">← Featured projects</a><a href="/projects/interactive-plm-system.html">Next project →</a></div><div class="footer-meta"><span>Joshua Tarara</span><span>Mechanical Engineering Student</span><span>© 2026</span></div></footer>
 </body>
 </html>
