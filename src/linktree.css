@@ -16,10 +16,9 @@
   content: "";
   pointer-events: none;
   background:
-    radial-gradient(ellipse 86% 48% at -8% -4%, rgba(226, 61, 27, .72), transparent 74%),
-    radial-gradient(ellipse 75% 57% at 100% 4%, rgba(35, 77, 213, .78), transparent 74%),
-    radial-gradient(ellipse 70% 48% at 51% 24%, rgba(167, 19, 111, .59), transparent 74%),
-    linear-gradient(180deg, #211014 0%, #21111b 22%, #1e1b23 38%, #1b1b1d 59%, #1b1b1d 100%);
+    linear-gradient(180deg, transparent 0%, transparent 32%, rgba(27, 20, 28, .42) 47%, #1b1b1d 64%, #1b1b1d 100%),
+    radial-gradient(ellipse at 48% 38%, rgba(167, 15, 111, .76), transparent 52%),
+    linear-gradient(100deg, #4b160e 0%, #1b090d 28%, #3f0d61 62%, #123ed0 100%);
 }
 .linktree-page::after {
   position: fixed;

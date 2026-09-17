@@ -5,7 +5,8 @@ import "./linktree.css";
 const links = [
   { title: "Portfolio Website", href: "/" },
   { title: "Featured Projects", href: "/#projects" },
-  { title: "LinkedIn · tararadotjoshua", href: "https://linkedin.com/in/tararadotjoshua", external: true },
+  { title: "LinkedIn · Tararajoshua", href: "https://linkedin.com/in/tararajoshua", external: true },
+  { title: "GitHub · TararadotJoshua", href: "https://github.com/TararadotJoshua", external: true },
   { title: "Email", href: profile.email },
 ];
 
