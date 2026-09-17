@@ -16,10 +16,10 @@
   content: "";
   pointer-events: none;
   background:
-    radial-gradient(ellipse 75% 56% at 5% 93%, rgba(235, 65, 24, .66), transparent 70%),
-    radial-gradient(ellipse 62% 62% at 97% 9%, rgba(27, 72, 217, .72), transparent 68%),
-    radial-gradient(ellipse 52% 58% at 55% 76%, rgba(177, 18, 120, .58), transparent 71%),
-    var(--surface);
+    radial-gradient(ellipse 86% 48% at -8% -4%, rgba(226, 61, 27, .72), transparent 74%),
+    radial-gradient(ellipse 75% 57% at 100% 4%, rgba(35, 77, 213, .78), transparent 74%),
+    radial-gradient(ellipse 70% 48% at 51% 24%, rgba(167, 19, 111, .59), transparent 74%),
+    linear-gradient(180deg, #211014 0%, #21111b 22%, #1e1b23 38%, #1b1b1d 59%, #1b1b1d 100%);
 }
 .linktree-page::after {
   position: fixed;
@@ -62,10 +62,9 @@
   transition: color 180ms ease, background 180ms ease, border-color 180ms ease, transform 180ms ease;
 }
 .linktree-link:hover { border-color: #f5f4ef; background: #f5f4ef; color: #0a0a0b; transform: translateY(-2px); }
-.linktree-copy { display: grid; gap: .22rem; }
 .linktree-title { font-size: 1.02rem; font-weight: 400; letter-spacing: -.025em; }
-.linktree-detail { color: currentColor; font-size: .7rem; letter-spacing: .08em; opacity: .62; text-transform: uppercase; }
-.linktree-arrow { display: grid; width: 2.1rem; height: 2.1rem; flex: 0 0 auto; place-items: center; border: 1px solid currentColor; border-radius: 50%; font-size: 1.15rem; font-weight: 300; }
+.linktree-arrow { display: grid; width: 2.1rem; height: 2.1rem; flex: 0 0 auto; place-items: center; border: 1px solid currentColor; border-radius: 50%; }
+.linktree-arrow svg { width: 1rem; height: 1rem; }
 .linktree-footer { margin: 2.5rem 0 0; color: rgba(245,244,239,.54); font-size: .68rem; letter-spacing: .12em; text-transform: uppercase; }
 .linktree-footer a { color: inherit; text-decoration: none; border-bottom: 1px solid transparent; }
 .linktree-footer a:hover { border-color: currentColor; }

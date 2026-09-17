@@ -3,10 +3,10 @@ import { profile } from "./data.js";
 import "./linktree.css";
 
 const links = [
-  { title: "Portfolio", detail: "Explore the full site", href: "/" },
-  { title: "Featured projects", detail: "Engineering case studies", href: "/#projects" },
-  { title: "LinkedIn", detail: "Connect professionally", href: profile.linkedin, external: true },
-  { title: "Email", detail: "Tararajoshua@gmail.com", href: profile.email },
+  { title: "Portfolio Website", href: "/" },
+  { title: "Featured Projects", href: "/#projects" },
+  { title: "LinkedIn · tararadotjoshua", href: "https://linkedin.com/in/tararadotjoshua", external: true },
+  { title: "Email", href: profile.email },
 ];
 
 export function Linktree() {
@@ -27,8 +27,8 @@ export function Linktree() {
       <nav className="linktree-links" aria-label="Joshua Tarara links">
         {links.map((link) => (
           <a className="linktree-link" href={link.href} key={link.title} target={link.external ? "_blank" : undefined} rel={link.external ? "noreferrer" : undefined}>
-            <span className="linktree-copy"><span className="linktree-title">{link.title}</span><span className="linktree-detail">{link.detail}</span></span>
-            <span className="linktree-arrow" aria-hidden="true">↗</span>
+            <span className="linktree-title">{link.title}</span>
+            <span className="linktree-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h13" /><path d="m13 6 6 6-6 6" /></svg></span>
           </a>
         ))}
       </nav>
