@@ -7,7 +7,7 @@ const links = [
   { title: "Featured Projects", href: "/#projects" },
   { title: "LinkedIn · Tararajoshua", href: "https://linkedin.com/in/tararajoshua", external: true },
   { title: "GitHub · TararadotJoshua", href: "https://github.com/TararadotJoshua", external: true },
-  { title: "Email", href: profile.email },
+  { title: "Email · Tararajoshua@gmail.com", href: profile.email },
 ];
 
 export function Linktree() {
