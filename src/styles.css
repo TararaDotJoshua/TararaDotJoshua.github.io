@@ -13,7 +13,7 @@
 }
 
 * { box-sizing: border-box; }
-html { scroll-behavior: smooth; background: var(--surface); }
+html { scroll-behavior: smooth; background: #111113; }
 body { margin: 0; min-width: 320px; background: var(--surface); color: #f5f4ef; }
 body, a, button { cursor: default; }
 a { color: inherit; text-decoration: none; }
@@ -31,6 +31,7 @@ button { font: inherit; }
   align-items: center;
   justify-content: space-between;
   padding: 2.35rem var(--page-pad);
+  padding-top: calc(2.35rem + env(safe-area-inset-top));
   font-size: 0.92rem;
   isolation: isolate;
 }
@@ -56,7 +57,7 @@ button { font: inherit; }
 .site-nav a:hover, .wordmark:hover { opacity: 0.58; }
 .menu-button { position: relative; z-index: 2; display: none; margin-left: auto; border: 0; padding: 0; color: inherit; background: transparent; }
 
-.hero { position: relative; min-height: 100svh; isolation: isolate; overflow: hidden; }
+.hero { position: relative; min-height: 100svh; min-height: 100lvh; isolation: isolate; overflow: hidden; }
 .gradient-layer {
   position: absolute;
   z-index: 0;
@@ -90,8 +91,8 @@ button { font: inherit; }
   letter-spacing: .2em;
   text-transform: uppercase;
 }
-.hero-content .eyebrow { margin-bottom: 2.2rem; }
-.hero-name { margin: 0; font-size: clamp(4.2rem, 9vw, 10rem); font-weight: 300; letter-spacing: -.065em; line-height: .9; white-space: nowrap; }
+.hero-content .eyebrow { margin-bottom: 2.2rem; color: rgba(245,244,239,.86); font-weight: 600; }
+.hero-name { margin: 0; font-size: clamp(4.2rem, 9vw, 10rem); font-weight: 500; letter-spacing: -.065em; line-height: .9; white-space: nowrap; }
 .hero-letter { display: inline-block; overflow: hidden; padding-bottom: .06em; vertical-align: top; }
 .hero-letter > span { display: inline-block; will-change: transform; }
 .hero-actions { display: flex; flex-wrap: wrap; justify-content: center; gap: .8rem; margin-top: clamp(2.6rem, 5vh, 4rem); }
@@ -100,11 +101,11 @@ button { font: inherit; }
 /* Generative cycloidal drive behind the hero name (src/HeroCycloid.jsx). */
 .hero-cycloid { position: absolute; z-index: 1; top: 50%; left: 50%; width: min(118vh, 92vw); height: min(118vh, 92vw); overflow: visible; pointer-events: none; translate: -50% -50%; }
 .hero-cycloid * { fill: none; vector-effect: non-scaling-stroke; }
-.cycloid-faint { stroke: rgba(245,244,239,.14); }
-.cycloid-pin { stroke: rgba(245,244,239,.42); }
-.cycloid-disc { stroke: rgba(245,244,239,.5); }
-.cycloid-disc.is-back { stroke: rgba(245,244,239,.18); }
-.cycloid-shaft { stroke: rgba(245,244,239,.16); }
+.cycloid-faint { stroke: rgba(245,244,239,.22); }
+.cycloid-pin { stroke: rgba(245,244,239,.6); }
+.cycloid-disc { stroke: rgba(245,244,239,.68); }
+.cycloid-disc.is-back { stroke: rgba(245,244,239,.28); }
+.cycloid-shaft { stroke: rgba(245,244,239,.26); }
 
 /* Pill buttons: hairline outline that fills with ink on hover; primary starts filled. */
 .pill-link {
@@ -202,7 +203,7 @@ button { font: inherit; }
 .education-details h3 { margin: 0 0 1rem; font-size: 1rem; font-weight: 500; }
 .education-details p { margin: 0; }
 
-.site-footer { position: relative; z-index: 2; padding: 4rem var(--page-pad) 2rem; border-top: 1px solid var(--hairline); background: #111113; }
+.site-footer { position: relative; z-index: 2; padding: 4rem var(--page-pad) calc(2rem + env(safe-area-inset-bottom)); border-top: 1px solid var(--hairline); background: #111113; }
 .footer-main { display: flex; align-items: flex-start; justify-content: space-between; gap: 3rem; padding-bottom: 3.5rem; }
 .footer-identity p { margin: 0 0 .5rem; font-size: clamp(1.6rem, 2.5vw, 2.5rem); font-weight: 300; letter-spacing: -.04em; }
 .footer-identity span, .footer-meta { color: var(--muted); font-size: .75rem; letter-spacing: .08em; text-transform: uppercase; }
@@ -213,9 +214,9 @@ button { font: inherit; }
 .footer-meta { display: flex; justify-content: space-between; gap: 2rem; padding-top: 1.5rem; border-top: 1px solid var(--hairline); }
 
 @media (max-width: 900px) {
-  .site-header { padding-top: 1.6rem; padding-bottom: 1.6rem; }
+  .site-header { padding-top: calc(1.6rem + env(safe-area-inset-top)); padding-bottom: 1.6rem; }
   .menu-button { display: block; }
-  .site-nav { position: fixed; top: 4.4rem; right: var(--page-pad); display: none; width: 10rem; flex-direction: column; gap: 0; padding: .65rem; background: rgba(10,10,11,.92); border: 1px solid var(--hairline); backdrop-filter: blur(14px); }
+  .site-nav { position: fixed; top: calc(4.4rem + env(safe-area-inset-top)); right: var(--page-pad); display: none; width: 10rem; flex-direction: column; gap: 0; padding: .65rem; background: rgba(10,10,11,.92); border: 1px solid var(--hairline); backdrop-filter: blur(14px); }
   .site-nav.is-open { display: flex; }
   .site-nav a { padding: .8rem; }
   .hero-name { white-space: normal; font-size: clamp(3.4rem, 15vw, 6rem); }

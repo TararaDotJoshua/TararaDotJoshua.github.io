@@ -6,7 +6,7 @@
   min-height: 100svh;
   margin: 0 auto;
   align-content: center;
-  padding: clamp(2rem, 8vw, 4.5rem) 1.35rem 2rem;
+  padding: calc(clamp(2rem, 8vw, 4.5rem) + env(safe-area-inset-top)) 1.35rem calc(2rem + env(safe-area-inset-bottom));
   text-align: center;
 }
 .linktree-page::before {
