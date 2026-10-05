@@ -1,52 +1,40 @@
-import { ArrowDown, ArrowUpRight } from "@phosphor-icons/react";
-import { motion, useScroll, useSpring, useTransform } from "framer-motion";
-import { lazy, Suspense, useEffect, useState } from "react";
+import { ArrowDown, ArrowUpRight, FileText, GithubLogo, LinkedinLogo } from "@phosphor-icons/react";
+import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion";
+import { useEffect, useState } from "react";
 import { GradientWave } from "./GradientWave.jsx";
+import { HeroCycloid } from "./HeroCycloid.jsx";
 import { capabilities, education, experience, profile, projects } from "./data.js";
 import { Linktree } from "./Linktree.jsx";
 
 const qaMode = new URLSearchParams(window.location.search).has("qa");
-const HeroCycloidalDrive = lazy(() => import("./HeroCycloidalDrive.jsx").then(({ HeroCycloidalDrive: Drive }) => ({ default: Drive })));
-const actuatorMediaQuery = "(min-width: 1024px)";
+const ease = [0.16, 1, 0.3, 1];
 
 const reveal = qaMode ? {} : {
   initial: { opacity: 0, y: 28 },
   whileInView: { opacity: 1, y: 0 },
   viewport: { once: true, amount: 0.2 },
-  transition: { duration: 0.72, ease: [0.16, 1, 0.3, 1] },
+  transition: { duration: 0.72, ease },
 };
 
 function Header() {
   const [open, setOpen] = useState(false);
-  const [compactViewport, setCompactViewport] = useState(false);
+  const [viewportHeight, setViewportHeight] = useState(() => window.innerHeight);
   const { scrollY } = useScroll();
 
   useEffect(() => {
-    const update = () => setCompactViewport(window.innerWidth <= 900);
-    update();
+    const update = () => setViewportHeight(window.innerHeight);
     window.addEventListener("resize", update);
     return () => window.removeEventListener("resize", update);
   }, []);
 
-  const transitionDistance = compactViewport ? 130 : 170;
-  const earlyTransition = compactViewport ? 36 : 46;
-  const smoothScrollY = useSpring(scrollY, { stiffness: 150, damping: 30, mass: 0.18 });
-  const wordmarkScale = useTransform(
-    smoothScrollY,
-    [0, earlyTransition, transitionDistance],
-    [1, compactViewport ? 0.48 : 0.323, compactViewport ? 0.355 : 0.216],
-  );
-  const wordmarkY = useTransform(
-    smoothScrollY,
-    [0, earlyTransition, transitionDistance],
-    [compactViewport ? 72 : 78, compactViewport ? 8 : 10, 0],
-  );
-  const headerAtmosphereOpacity = useTransform(smoothScrollY, [12, compactViewport ? 70 : 82], [0, 1]);
+  // The hero owns the name; the header wordmark arrives once it scrolls out of view.
+  const wordmarkOpacity = useTransform(scrollY, [viewportHeight * 0.28, viewportHeight * 0.42], [0, 1]);
+  const headerAtmosphereOpacity = useTransform(scrollY, [12, 82], [0, 1]);
 
   return (
     <header className="site-header">
       <motion.div className="header-atmosphere" style={{ opacity: headerAtmosphereOpacity }} aria-hidden="true" />
-      <motion.a className="wordmark" href="#top" aria-label="Joshua Tarara, back to top" style={{ scale: wordmarkScale, y: wordmarkY }}>
+      <motion.a className="wordmark" href="#top" aria-label="Joshua Tarara, back to top" style={{ opacity: wordmarkOpacity }}>
         Joshua Tarara
       </motion.a>
       <button className="menu-button" type="button" aria-label="Toggle navigation" aria-expanded={open} onClick={() => setOpen((value) => !value)}>
@@ -64,22 +52,13 @@ function Header() {
   );
 }
 
-function useActuatorViewport() {
-  const [showActuator, setShowActuator] = useState(() => window.matchMedia(actuatorMediaQuery).matches);
-
-  useEffect(() => {
-    const mediaQuery = window.matchMedia(actuatorMediaQuery);
-    const update = () => setShowActuator(mediaQuery.matches);
-    update();
-    mediaQuery.addEventListener("change", update);
-    return () => mediaQuery.removeEventListener("change", update);
-  }, []);
-
-  return showActuator;
-}
-
 function Hero() {
-  const showActuator = useActuatorViewport();
+  const reduced = useReducedMotion() || qaMode;
+  const rise = (delay) => (reduced ? {} : {
+    initial: { opacity: 0, y: 20 },
+    animate: { opacity: 1, y: 0 },
+    transition: { duration: 0.9, delay, ease },
+  });
 
   return (
     <section className="hero" id="top">
@@ -87,24 +66,41 @@ function Hero() {
         <GradientWave />
       </div>
       <div className="hero-shade" aria-hidden="true" />
+      <HeroCycloid reduced={reduced} />
       <div className="hero-content">
-        <div className="hero-name-space" aria-hidden="true" />
-        <motion.p className="eyebrow" {...reveal}>{profile.label}</motion.p>
-        <motion.div className="hero-portrait" {...reveal} transition={{ ...reveal.transition, delay: 0.08 }}>
-          <img src="/assets/headshot.png" alt="Joshua Tarara" />
-        </motion.div>
-        <motion.div className="hero-action" {...reveal} transition={{ ...reveal.transition, delay: 0.16 }}>
-          <a href="#projects" className="circle-link">
-            <span className="circle-icon"><ArrowDown weight="light" /></span>
+        <motion.p className="eyebrow" {...rise(0.2)}>{profile.label}</motion.p>
+        <h1 className="hero-name" aria-label={profile.name}>
+          {profile.name.split("").map((letter, index) => (
+            <span className="hero-letter" key={`${letter}-${index}`} aria-hidden="true">
+              <motion.span
+                initial={reduced ? false : { y: "110%" }}
+                animate={{ y: "0%" }}
+                transition={{ duration: 1, delay: 0.25 + index * 0.035, ease }}
+              >
+                {letter === " " ? "\u00a0" : letter}
+              </motion.span>
+            </span>
+          ))}
+        </h1>
+        <motion.div className="hero-actions" {...rise(0.75)}>
+          <a href="#projects" className="pill-link is-primary">
             <span>View Projects</span>
+            <ArrowDown weight="light" aria-hidden="true" />
           </a>
+          <a href="#experience" className="pill-link">
+            <FileText weight="light" aria-hidden="true" />
+            <span>Resume</span>
+          </a>
+          <div className="hero-socials">
+            <a href={profile.linkedin} className="pill-link pill-icon" target="_blank" rel="noreferrer" aria-label="LinkedIn profile">
+              <LinkedinLogo weight="light" aria-hidden="true" />
+            </a>
+            <a href={profile.github} className="pill-link pill-icon" target="_blank" rel="noreferrer" aria-label="GitHub profile">
+              <GithubLogo weight="light" aria-hidden="true" />
+            </a>
+          </div>
         </motion.div>
       </div>
-      {showActuator && (
-        <Suspense fallback={null}>
-          <HeroCycloidalDrive />
-        </Suspense>
-      )}
     </section>
   );
 }
@@ -141,6 +137,9 @@ function About() {
         <h2>About Joshua Tarara</h2>
       </motion.div>
       <div className="about-grid">
+        <motion.figure className="about-portrait" {...reveal}>
+          <img src="/assets/headshot.png" alt="Joshua Tarara" />
+        </motion.figure>
         <motion.div className="about-copy" {...reveal}>
           <p>{profile.statement}</p>
           <p>I study Mechanical Engineering at Florida Tech, specializing in Robotics and Control with a minor in Business Management. My work spans defense microelectronics, mechatronics, manufacturing automation, and UAS development.</p>

@@ -4,6 +4,7 @@ export const profile = {
   statement: "Specializing in mechanical designs for DoW microelectronics, embedded systems, and avionics. Experience in VITA-spec housing, RF layouts, and precision fixturing with research interests in UAS and optomechanical design.",
   email: "mailto:Tararajoshua@gmail.com",
   linkedin: "https://linkedin.com/in/tararajoshua",
+  github: "https://github.com/TararadotJoshua",
 };
 
 export const projects = [
